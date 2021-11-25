@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    --A-Black : #848583;
+    --B-Black : #70716F;
+    --C-Black : #5B5D5A;
+    --D-Black : #474846;
+    --E-Black : #323431;
+    --F-Black : #2D2F2C;
+    --G-Black : #282A27;
+    --H-Black : #232422;
+    --I-Black : #1E1F1D;
+
+    --A-Green : #6AF1D4; 
+    --B-Green : #51EFCD;
+    --C-Green : #39EDC5;
+    --D-Green : #20EABE;
+    --E-Green : #07E8B7;
+    --F-Green : #06D1A5;
+    --G-Green : #06BA92;
+    --H-Green : #05A280;
+    --I-Green : #048B6E;
+
+    --A-Red : #F17786;
+    --B-Red : #EE6172;
+    --C-Red : #EC4A5E;
+    --D-Red : #E9344A;
+    --E-Red : #E71D36;
+    --F-Red : #D01A31;
+    --G-Red : #B9172B;
+    --H-Red : #A21426;
+    --I-Red : #8B1120;
+
+    --A-White: #F1F5EE;
+    --B-White: #EFF4EB;
+    --C-White: #EDF2E9; 
+    --D-White: #EAF1E6;
+    --E-White: #E8EFE3; 
+    --F-White: #D1D7CC; 
+    --G-White: #BABFB6;
+    --H-White: #A2A79F;
+    --I-White: #8B8F88;
+
+    padding: 0px;
+    margin: 0px;
+    --default-margin: 50px;
+    --default-padding: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.button-primary{
+    width: 90px;
+    color: white;
+    display: block;
+    font-weight: 600;
+    padding: 5px 5px;
+    border-radius: 7px;
+    background: var(--E-Green);
+    border: 1px solid transparent;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);    
+}
+
+.input-underline{
+    padding: 5px;
+    width: 70%;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--C-Black);
+}
+
+.mt-5p{
+    margin-top: 5px;
+}

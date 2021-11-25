@@ -1,0 +1,38 @@
+*{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+header {
+    width: 100vw;
+    display: flex;
+    color: white;
+    font-size: 20px;
+    box-sizing: border-box;
+    background: var(--D-Green);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: var(--default-padding) var(--default-margin);
+}
+
+nav{
+    display: inherit;
+    margin-left: auto;
+}
+
+nav ul{
+    display: inherit;
+}
+
+nav ul li{
+    margin: 0px 5px;
+}
+
+.navigation-link{
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.navigation-link:hover{
+    font-weight: 500;
+}
