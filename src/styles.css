@@ -66,6 +66,15 @@
     border-bottom: 1px solid var(--C-Black);
 }
 
+.input-danger{
+    border-bottom: 2px solid var(--E-Red);
+}
+
+.input-underline:focus-visible{
+    outline: none;
+    border-bottom: 2px solid white;
+}
+
 .mt-5p{
     margin-top: 5px;
 }

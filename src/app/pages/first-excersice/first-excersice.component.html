@@ -1,18 +1,66 @@
 <app-header></app-header>
 <main>
-    <div>
-        <form action="">
-            <input class="input-underline" type="text" placeholder="Numero de pasajeros de primera clase">
-            <input class="input-underline" type="text" placeholder="Numero de pasajeros de clase turista">
-            <input class="input-underline" type="text" placeholder="Numero de pasajeros de 3era edad o niño">
-            <input class="input-underline" type="text" placeholder="¿Cual es la distancia de origen a destino?">
-            <button
-                class="button-primary mt-5p">
+    <div
+        *ngIf="!showData">
+        <select id="select-place">
+            <option value="">Seleccione un lugar de destino</option>
+        </select>
+    </div>
+    <div
+        *ngIf="showData" 
+        class="form-container">
+        <form
+            #normalForm
+            (ngSubmit)="onSubmit($event)"
+            [formGroup]="form">
+            <input 
+                class="input-underline" 
+                type="text" 
+                formControlName="firstNumber"
+                placeholder="Numero de pasajeros de primera clase"
+                [class.input-danger]="form.get('firstNumber')!.dirty && form.get('firstNumber')!.invalid"> 
+            <input 
+                class="input-underline" 
+                type="text" 
+                formControlName="turistNumber"
+                placeholder="Numero de pasajeros de clase turista"
+                [class.input-danger]="form.get('turistNumber')!.dirty && form.get('turistNumber')!.invalid">
+            <input 
+                class="input-underline" 
+                type="text" 
+                formControlName="thirdNumber"
+                placeholder="Numero de pasajeros de 3era edad o niño"
+                [class.input-danger]="form.get('thirdNumber')!.dirty && form.get('thirdNumber')!.invalid">
+            <input 
+                class="input-underline" 
+                type="text" 
+                formControlName="distance"
+                placeholder="¿Cual es la distancia de origen a destino?"
+                [class.input-danger]="form.get('distance')!.dirty && form.get('distance')!.invalid">
+            <button 
+                class="button-primary">
                 Calcular
-            </button>
+            </button>   
         </form>
     </div>
-    <div>
+    <div
+        *ngIf="showData">
+        <div class="container-options">
+            <div class="option">
+                <button
+                    (click)="changeState(false)">
+                    <fa-icon [icon]="plus"></fa-icon>
+                </button>
+                <span>Muestre tabla de proyeccion de ingresos</span>
+            </div>
+            <div class="option">
+                <button
+                    (click)="changeState(true)">
+                    <fa-icon [icon]="plus"></fa-icon>
+                </button>
+                <span>Muestre tabla de ingresos por viaje</span>
+            </div>
+        </div>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -24,20 +72,73 @@
             <tbody>
                 <tr>
                     <th>Primera clase</th>
-                    <td>000.00</td>
-                    <td>000.00</td>
+                    <td>{{ form.get('distance')!.value > 1? form.get('distance')!.value : 000.00}}</td>
+                    <td>{{ firstPrice }}</td>
                 </tr>
                 <tr>
                     <th>Clase normal</th>
-                    <td>000.00</td>
-                    <td>000.00</td>
+                    <td>{{ form.get('distance')!.value > 1? form.get('distance')!.value : 000.00}}</td>
+                    <td>{{ normalPrice }}</td>
                 </tr>
                 <tr>
                     <th>Tercera edad y niños</th>
-                    <td>000.00</td>
-                    <td>000.00</td>
+                    <td>{{ form.get('distance')!.value > 1? form.get('distance')!.value : 000.00}}</td>
+                    <td>{{ thirdPrice }}</td>
                 </tr>
             </tbody>
         </table>
+        <h2 class="total-cost">Costo de viaje: 000.00</h2>
+        <h2 class="total-cost">Ganancia total: 000.00</h2>
+    </div>
+    <div
+        *ngIf="!showData">
+        <div class="container-options">
+            <div class="option">
+                <button
+                    (click)="changeState(false)">
+                    <fa-icon [icon]="plus"></fa-icon>
+                </button>
+                <span>Muestre tabla de proyeccion de ingresos</span>
+            </div>
+            <div class="option">
+                <button
+                    (click)="changeState(true)">
+                    <fa-icon [icon]="plus"></fa-icon>
+                </button>
+                <span>Muestre tabla de ingresos por viaje</span>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Viajes</th>
+                    <th>Ingreso por viaje</th>
+                    <th>Gastos por viaje</th>
+                    <th>Ganancias netas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Comayagua</th>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th>Atlantida</th>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th>Francisco Morazan</th>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="total-cost">Costo de viaje: 000.00</h2>
+        <h2 class="total-cost">Ganancia total: 000.00</h2>
     </div>
 </main>
