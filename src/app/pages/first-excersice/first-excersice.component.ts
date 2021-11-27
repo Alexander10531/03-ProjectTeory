@@ -13,6 +13,12 @@ import { IDestiny as destiny } from '../../utils/interface';
 })
 export class FirstExcersiceComponent{
 
+    costPerKm : number = 7000 / 91.1; 
+    costPerFood : number = 50; 
+    valueFirst = 11.10;
+    valueNormal = 7.70; 
+    valueThird = 5.5;
+
     form : FormGroup;
     totalCost: number = 0; 
     totalGain : number = 0;
@@ -130,37 +136,48 @@ export class FirstExcersiceComponent{
         this.showData = valueBool; 
     }
     
-    onSubmit(e : Event){
-        let firstPrice = Number(this.form.value.firstNumber ? this.form.value.firstNumber : 0);
-        let normalPrice = Number(this.form.value.turistNumber ? this.form.value.turistNumber : 0);
-        let thirdPrice = Number(this.form.value.thirdNumber ? this.form.value.thirdNumber : 0);
-        let costPerKm : number = 7000 / 91.1; 
-        let costPerFood : number = 50; 
-        let valueFirst = 11.10;
-        let valueNormal = 7.70; 
-        let valueThird = 5.5;  
-        
-        if(this.form.valid && (firstPrice + normalPrice + thirdPrice) < 41 && (firstPrice + normalPrice + thirdPrice) > 0){
-            this.firstPrice = (valueFirst * this.form.value.distance) * firstPrice;
-            this.normalPrice = (valueNormal * this.form.value.distance) * normalPrice;
-            this.thirdPrice = (valueThird * this.form.value.distance) * thirdPrice;
-            this.totalCost = (costPerKm * Number(this.form.value.distance)) + (costPerFood * (firstPrice + normalPrice + thirdPrice));
-            this.totalGain = (this.firstPrice + this.normalPrice + this.thirdPrice) - this.totalCost;
-            this.calculatePrediction(this.form.value.destinyProjection);
-        }
-        e.preventDefault();
-    }
-
     generateRandomNumber(min : number, max : number) : number{
         return Math.floor((Math.random() * (max - min + 1)) + min);
     }
 
+    // Fix iterations on calculatePrediction
     calculatePrediction(distance : number){
-        let someValue = this.destiny.find((destiny) => destiny.distance == distance)
-        this.valueProjection.push(someValue as destiny);
-        for(let i = 0; i < 2; i++){
-            this.valueProjection.push(this.destiny[this.generateRandomNumber(0,17)])
+        this.valueProjection = [];
+        let numberRequest : number = 2;
+        let someValue = this.destiny.findIndex((destiny) => destiny.distance == distance)
+        let iteration : number = 0;
+        this.valueProjection.push(this.destiny[someValue]);
+        while(iteration != numberRequest){
+            iteration += 1;
+            if(someValue + iteration >= this.destiny.length){
+                someValue = 0;
+            }
+            this.valueProjection.push(this.destiny[someValue + iteration]);
         }
     }
     
+    gainProjection(destiny : destiny, numberFirst : number, numberNormal : number, numberThird : number){
+        let gainFirst : number = (this.valueFirst * destiny.distance) * numberFirst;
+        let gainNormal : number = (this.valueNormal * destiny.distance) * numberNormal;
+        let gainThird : number = (this.valueThird * destiny.distance) * numberThird;
+        console.log(gainFirst + gainNormal + gainThird);
+    }
+    
+    
+    onSubmit(e : Event){
+
+        e.preventDefault();
+        let firstPrice = Number(this.form.value.firstNumber ? this.form.value.firstNumber : 0);
+        let normalPrice = Number(this.form.value.turistNumber ? this.form.value.turistNumber : 0);
+        let thirdPrice = Number(this.form.value.thirdNumber ? this.form.value.thirdNumber : 0);
+        
+        if(this.form.valid && (firstPrice + normalPrice + thirdPrice) < 41 && (firstPrice + normalPrice + thirdPrice) > 0){
+            this.firstPrice = (this.valueFirst * this.form.value.distance) * firstPrice;
+            this.normalPrice = (this.valueNormal * this.form.value.distance) * normalPrice;
+            this.thirdPrice = (this.valueThird * this.form.value.distance) * thirdPrice;
+            this.totalCost = (this.costPerKm * Number(this.form.value.distance)) + (this.costPerFood * (firstPrice + normalPrice + thirdPrice));
+            this.totalGain = (this.firstPrice + this.normalPrice + this.thirdPrice) - this.totalCost;
+            this.calculatePrediction(this.form.value.destinyProjection);
+        }
+    }
 }
