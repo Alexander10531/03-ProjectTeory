@@ -62,8 +62,13 @@ table tbody{
 #select-place{
     border: none;
     color: white;
-    backgrounnd: transparent;
+    background: transparent;
     border-bottom: 2px solid var(--E-Green);
+}
+
+#select-place *{
+    background-color: var(--E-Black);
+    color: white;
 }
 
 @media only screen and (max-width: 1050px){

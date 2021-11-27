@@ -1,0 +1,4 @@
+main{
+    background-color: var(--E-Black);
+    min-height: calc(100vh - 70px);
+}

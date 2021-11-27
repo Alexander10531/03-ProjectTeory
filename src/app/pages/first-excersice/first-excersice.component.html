@@ -2,8 +2,12 @@
 <main>
     <div
         *ngIf="!showData">
-        <select id="select-place">
-            <option value="">Seleccione un lugar de destino</option>
+        <select 
+            id="select-place">
+            <option [value]="">Seleccione un lugar de destino</option>
+            <option
+                *ngFor="let i of destiny" 
+                [value]="i.distance">{{ i.name }}</option>
         </select>
     </div>
     <div
@@ -87,8 +91,8 @@
                 </tr>
             </tbody>
         </table>
-        <h2 class="total-cost">Costo de viaje: 000.00</h2>
-        <h2 class="total-cost">Ganancia total: 000.00</h2>
+        <h2 class="total-cost">Costo de viaje: {{ totalCost | number: '1.2-2'}}</h2>
+        <h2 class="total-cost">Ganancia total: {{ totalGain | number: '1.2-2'}}</h2>
     </div>
     <div
         *ngIf="!showData">
@@ -138,7 +142,5 @@
                 </tr>
             </tbody>
         </table>
-        <h2 class="total-cost">Costo de viaje: 000.00</h2>
-        <h2 class="total-cost">Ganancia total: 000.00</h2>
     </div>
 </main>
