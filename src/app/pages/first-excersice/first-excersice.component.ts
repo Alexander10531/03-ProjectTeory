@@ -21,7 +21,7 @@ export class FirstExcersiceComponent{
     normalPrice : number = 0; 
     showData : boolean = true; 
     plus : IconDefinition = faPlus;
-
+    valueProjection : destiny[] = []
     destiny : destiny[] = [
         { 
             name : "La Ceiba", 
@@ -88,6 +88,7 @@ export class FirstExcersiceComponent{
             distance: 213
         }
     ]
+
     constructor(private formBuilder : FormBuilder){
         this.form = formBuilder.group({
             firstNumber : [
@@ -113,7 +114,15 @@ export class FirstExcersiceComponent{
                     Validators.required,
                     Validators.min(1),
                     Validators.pattern('^\\d+$')
-                ]],
+                ],
+                
+            ],
+            destinyProjection : [
+                "Seleccione un lugar de destino", 
+                [
+                    Validators.required
+                ]
+            ]               
         })
     }
 
@@ -137,12 +146,21 @@ export class FirstExcersiceComponent{
             this.thirdPrice = (valueThird * this.form.value.distance) * thirdPrice;
             this.totalCost = (costPerKm * Number(this.form.value.distance)) + (costPerFood * (firstPrice + normalPrice + thirdPrice));
             this.totalGain = (this.firstPrice + this.normalPrice + this.thirdPrice) - this.totalCost;
+            this.calculatePrediction(this.form.value.destinyProjection);
         }
         e.preventDefault();
     }
 
-    generateRandomNumber(min : number, max : number) : Number{
+    generateRandomNumber(min : number, max : number) : number{
         return Math.floor((Math.random() * (max - min + 1)) + min);
     }
 
+    calculatePrediction(distance : number){
+        let someValue = this.destiny.find((destiny) => destiny.distance == distance)
+        this.valueProjection.push(someValue as destiny);
+        for(let i = 0; i < 2; i++){
+            this.valueProjection.push(this.destiny[this.generateRandomNumber(0,17)])
+        }
+    }
+    
 }

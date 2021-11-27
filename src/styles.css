@@ -78,3 +78,16 @@
 .mt-5p{
     margin-top: 5px;
 }
+
+#select-place{
+    width: 70%;
+    border: none;
+    color: white;
+    background: transparent;
+    border-bottom: 2px solid var(--E-Green);
+}
+
+#select-place *{
+    background-color: var(--E-Black);
+    color: white;
+}

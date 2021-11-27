@@ -1,17 +1,6 @@
 <app-header></app-header>
 <main>
     <div
-        *ngIf="!showData">
-        <select 
-            id="select-place">
-            <option [value]="">Seleccione un lugar de destino</option>
-            <option
-                *ngFor="let i of destiny" 
-                [value]="i.distance">{{ i.name }}</option>
-        </select>
-    </div>
-    <div
-        *ngIf="showData" 
         class="form-container">
         <form
             #normalForm
@@ -41,7 +30,15 @@
                 formControlName="distance"
                 placeholder="¿Cual es la distancia de origen a destino?"
                 [class.input-danger]="form.get('distance')!.dirty && form.get('distance')!.invalid">
-            <button 
+                <select 
+                    id="select-place"
+                    formControlName="destinyProjection">
+                    <option [value]="">Seleccione un lugar de destino</option>
+                    <option
+                        *ngFor="let i of destiny" 
+                        [value]="i.distance">{{ i.name }}</option>
+                </select>
+                <button 
                 class="button-primary">
                 Calcular
             </button>   
@@ -122,23 +119,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>Comayagua</th>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <th>Atlantida</th>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <th>Francisco Morazan</th>
-                    <td>0</td>
-                    <td>0</td>
-                    <td>0</td>
+                <tr 
+                    *ngFor="let i of valueProjection">
+                    <th>{{i.name}}</th>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
                 </tr>
             </tbody>
         </table>
