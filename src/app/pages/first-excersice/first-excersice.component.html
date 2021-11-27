@@ -121,10 +121,10 @@
             <tbody>
                 <tr 
                     *ngFor="let i of valueProjection">
-                    <th>{{i.name}}</th>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
+                    <th>{{ i.name }}</th>
+                    <td>{{ i.gain | number: '1.2-2'}}</td>
+                    <td>{{ i.cost | number: '1.2-2'}}</td>
+                    <td>{{ i.total | number: '1.2-2'}}</td>
                 </tr>
             </tbody>
         </table>

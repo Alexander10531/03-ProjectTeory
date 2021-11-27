@@ -156,13 +156,20 @@ export class FirstExcersiceComponent{
         }
     }
     
-    gainProjection(destiny : destiny, numberFirst : number, numberNormal : number, numberThird : number){
+    gainProjection(destiny : destiny, numberFirst : number, numberNormal : number, numberThird : number) : destiny{
         let gainFirst : number = (this.valueFirst * destiny.distance) * numberFirst;
         let gainNormal : number = (this.valueNormal * destiny.distance) * numberNormal;
         let gainThird : number = (this.valueThird * destiny.distance) * numberThird;
-        console.log(gainFirst + gainNormal + gainThird);
+        let totalGain : number = gainFirst + gainNormal + gainThird;
+        let totalCost : number = (this.costPerKm * destiny.distance) + ((numberFirst + numberNormal + numberThird) * 50 ); 
+        destiny = {  
+            ...destiny,
+            cost : totalCost, 
+            gain : totalGain,
+            total : totalGain - totalCost, 
+        }        
+        return destiny;
     }
-    
     
     onSubmit(e : Event){
 
@@ -170,14 +177,19 @@ export class FirstExcersiceComponent{
         let firstPrice = Number(this.form.value.firstNumber ? this.form.value.firstNumber : 0);
         let normalPrice = Number(this.form.value.turistNumber ? this.form.value.turistNumber : 0);
         let thirdPrice = Number(this.form.value.thirdNumber ? this.form.value.thirdNumber : 0);
-        
+
         if(this.form.valid && (firstPrice + normalPrice + thirdPrice) < 41 && (firstPrice + normalPrice + thirdPrice) > 0){
             this.firstPrice = (this.valueFirst * this.form.value.distance) * firstPrice;
             this.normalPrice = (this.valueNormal * this.form.value.distance) * normalPrice;
             this.thirdPrice = (this.valueThird * this.form.value.distance) * thirdPrice;
             this.totalCost = (this.costPerKm * Number(this.form.value.distance)) + (this.costPerFood * (firstPrice + normalPrice + thirdPrice));
             this.totalGain = (this.firstPrice + this.normalPrice + this.thirdPrice) - this.totalCost;
+
             this.calculatePrediction(this.form.value.destinyProjection);
+            for(let i = 0; i < this.valueProjection.length; i++){
+                this.valueProjection[i] = this.gainProjection(this.valueProjection[i], firstPrice, normalPrice, thirdPrice);
+            }
+            
         }
     }
 }
