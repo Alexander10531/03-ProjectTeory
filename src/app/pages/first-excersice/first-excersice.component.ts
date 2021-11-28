@@ -132,35 +132,35 @@ export class FirstExcersiceComponent{
     }
 
     // Fix iterations on calculatePrediction
-    // calculatePrediction(distance : number){
-    //     this.valueProjection = [];
-    //     let numberRequest : number = 2;
-    //     let someValue = this.destiny.findIndex((destiny) => destiny.distance == distance)
-    //     let iteration : number = 0;
-    //     this.valueProjection.push(this.destiny[someValue]);
-    //     while(iteration != numberRequest){
-    //         iteration += 1;
-    //         if(someValue + iteration >= this.destiny.length){
-    //             someValue = 0;
-    //         }
-    //         this.valueProjection.push(this.destiny[someValue + iteration]);
-    //     }
-    // }
+    calculatePrediction(distance : number){
+        this.valueProjection = [];
+        let numberRequest : number = 2;
+        let someValue = this.destiny.findIndex((destiny) => destiny.distance == distance)
+        let iteration : number = 0;
+        this.valueProjection.push(this.destiny[someValue]);
+        while(iteration != numberRequest){
+            iteration += 1;
+            if(someValue + iteration >= this.destiny.length){
+                someValue = 0;
+            }
+            this.valueProjection.push(this.destiny[someValue + iteration]);
+        }
+    }
     
-    // gainProjection(destiny : destiny, numberFirst : number, numberNormal : number, numberThird : number) : destiny{
-    //     let gainFirst : number = (this.valueFirst * destiny.distance) * numberFirst;
-    //     let gainNormal : number = (this.valueNormal * destiny.distance) * numberNormal;
-    //     let gainThird : number = (this.valueThird * destiny.distance) * numberThird;
-    //     let totalGain : number = gainFirst + gainNormal + gainThird;
-    //     let totalCost : number = (this.costPerKm * destiny.distance) + ((numberFirst + numberNormal + numberThird) * 50 ); 
-    //     destiny = {  
-    //         ...destiny,
-    //         cost : totalCost, 
-    //         gain : totalGain,
-    //         total : totalGain - totalCost, 
-    //     }        
-    //     return destiny;
-    // }
+    gainProjection(destiny : destiny, numberFirst : number, numberNormal : number, numberThird : number) : destiny{
+        let gainFirst : number = (this.valueFirst * destiny.distance) * numberFirst;
+        let gainNormal : number = (this.valueNormal * destiny.distance) * numberNormal;
+        let gainThird : number = (this.valueThird * destiny.distance) * numberThird;
+        let totalGain : number = gainFirst + gainNormal + gainThird;
+        let totalCost : number = (this.costPerKm * destiny.distance) + ((numberFirst + numberNormal + numberThird) * 50 ); 
+        destiny = {  
+            ...destiny,
+            cost : totalCost, 
+            gain : totalGain,
+            total : totalGain - totalCost, 
+        }        
+        return destiny;
+    }
     
     onSubmit(e : Event){
         e.preventDefault();
@@ -168,17 +168,26 @@ export class FirstExcersiceComponent{
         let normalPrice = Number(this.form.value.turistNumber ? this.form.value.turistNumber : 0);
         let thirdPrice = Number(this.form.value.thirdNumber ? this.form.value.thirdNumber : 0);
         if(this.form.valid && (firstPrice + normalPrice + thirdPrice) < 41 && (firstPrice + normalPrice + thirdPrice) > 0 && !isNaN(this.form.value.destinyProjection)){
-            console.log(this.form.value.destinyProjection);
             this.firstPrice = (this.valueFirst * this.form.value.destinyProjection) * firstPrice;
             this.normalPrice = (this.valueNormal * this.form.value.destinyProjection) * normalPrice;
             this.thirdPrice = (this.valueThird * this.form.value.destinyProjection) * thirdPrice;
             this.totalCost = (this.costPerKm * Number(this.form.value.destinyProjection)) + (this.costPerFood * (firstPrice + normalPrice + thirdPrice));
             this.totalGain = (this.firstPrice + this.normalPrice + this.thirdPrice) - this.totalCost;
 
-            // this.calculatePrediction(this.form.value.destinyProjection);
-            // for(let i = 0; i < this.valueProjection.length; i++){
-            //     this.valueProjection[i] = this.gainProjection(this.valueProjection[i], firstPrice, normalPrice, thirdPrice);
-            // }
+            this.calculatePrediction(this.form.value.destinyProjection);
+            for(let i = 0; i < this.valueProjection.length; i++){
+                this.valueProjection[i] = this.gainProjection(this.valueProjection[i], firstPrice, normalPrice, thirdPrice);
+            }
         }
     }
-}
+
+    fillRandomNumber(){
+        const randomFirst = this.generateRandomNumber(0, 10);
+        const randomNormal = this.generateRandomNumber(0, 40 - randomFirst);
+        const randomThird = this.generateRandomNumber(0, 40 - ( randomFirst + randomNormal ));
+        this.form.get('firstNumber')?.setValue(randomFirst);    
+        this.form.get('turistNumber')?.setValue(randomNormal);    
+        this.form.get('thirdNumber')?.setValue(randomThird);    
+    }
+
+}  

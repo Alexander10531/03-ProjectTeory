@@ -9,7 +9,7 @@
             <input 
                 class="input-underline" 
                 type="text" 
-                formControlName="firstNumber"
+                formControlName="firstNumber"   
                 placeholder="Numero de pasajeros de primera clase"
                 [class.input-danger]="form.get('firstNumber')!.dirty && form.get('firstNumber')!.invalid"> 
             <input 
@@ -35,6 +35,11 @@
                 <button 
                     class="button-primary">
                     Calcular
+                </button>
+                <button 
+                (click)="fillRandomNumber()"
+                class="button-primary">
+                    Valores aleatorios
                 </button>
         </form>
     </div>
