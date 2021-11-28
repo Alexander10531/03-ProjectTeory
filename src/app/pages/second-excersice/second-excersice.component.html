@@ -1,3 +1,40 @@
 <app-header></app-header>
 <main>
+    <button 
+        (click)="showInput = !showInput"
+        class="data-information">
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="77.6px"
+	    height="38.8px" viewBox="0 0 77.6 38.8" style="overflow:visible;enable-background:new 0 0 77.6 38.8;" xml:space="preserve">
+        <path class="st0" d="M0,38.8C0,17.4,17.4,0,38.8,0s38.8,17.4,38.8,38.8"/>
+        <polyline class="st1" points="22,29.4 38.9,12.5 55.6,29.2 "/>
+    </svg>
+</button>
+<div
+    *ngIf="showInput"
+    class="container-input">
+    <div class="input-container">
+    </div>
+    <div class="breadcrumb">
+        <button 
+            class="active-button button-action">
+            <span>Numero de carriles</span>
+        </button>
+        <button 
+            class="button-action">
+            Numero de vehiculos
+        </button>
+        <button 
+            class="button-action">
+            Velocidad de promedio
+        </button>
+        <button 
+            class="button-action">
+            Velocidad de promedio
+        </button>
+        <button 
+            class="button-action">
+            Velocidad de simulacion
+        </button>
+    </div>
+</div>
 </main>

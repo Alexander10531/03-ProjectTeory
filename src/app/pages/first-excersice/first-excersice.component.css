@@ -59,6 +59,10 @@ table tbody{
     width: 100%;
 }
 
+.button-primary{
+    margin-top: 5px;
+}
+
 @media only screen and (max-width: 1050px){
     main{
         flex-direction: column;

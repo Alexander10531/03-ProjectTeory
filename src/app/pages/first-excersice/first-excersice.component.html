@@ -24,12 +24,6 @@
                 formControlName="thirdNumber"
                 placeholder="Numero de pasajeros de 3era edad o niño"
                 [class.input-danger]="form.get('thirdNumber')!.dirty && form.get('thirdNumber')!.invalid">
-            <input 
-                class="input-underline" 
-                type="text" 
-                formControlName="distance"
-                placeholder="¿Cual es la distancia de origen a destino?"
-                [class.input-danger]="form.get('distance')!.dirty && form.get('distance')!.invalid">
                 <select 
                     id="select-place"
                     formControlName="destinyProjection">
@@ -39,9 +33,9 @@
                         [value]="i.distance">{{ i.name }}</option>
                 </select>
                 <button 
-                class="button-primary">
-                Calcular
-            </button>   
+                    class="button-primary">
+                    Calcular
+                </button>
         </form>
     </div>
     <div
@@ -73,18 +67,18 @@
             <tbody>
                 <tr>
                     <th>Primera clase</th>
-                    <td>{{ form.get('distance')!.value > 1? form.get('distance')!.value : 000.00}}</td>
-                    <td>{{ firstPrice }}</td>
+                    <td>{{ form.get('destinyProjection')!.value != "Seleccione un lugar de destino" ? form.get('destinyProjection')!.value : 0 | number : '1.2-2'}}</td>
+                    <td>{{ firstPrice | number : '1.2-2' }}</td>
                 </tr>
                 <tr>
                     <th>Clase normal</th>
-                    <td>{{ form.get('distance')!.value > 1? form.get('distance')!.value : 000.00}}</td>
-                    <td>{{ normalPrice }}</td>
+                    <td>{{ form.get('destinyProjection')!.value != "Seleccione un lugar de destino" ? form.get('destinyProjection')!.value : 0 | number : '1.2-2'}}</td>
+                    <td>{{ normalPrice | number : '1.2-2'}}</td>
                 </tr>
                 <tr>
                     <th>Tercera edad y niños</th>
-                    <td>{{ form.get('distance')!.value > 1? form.get('distance')!.value : 000.00}}</td>
-                    <td>{{ thirdPrice }}</td>
+                    <td>{{ form.get('destinyProjection')!.value != "Seleccione un lugar de destino" ? form.get('destinyProjection')!.value : 0 | number : '1.2-2'}}</td>
+                    <td>{{ thirdPrice | number : '1.2-2'}}</td>
                 </tr>
             </tbody>
         </table>

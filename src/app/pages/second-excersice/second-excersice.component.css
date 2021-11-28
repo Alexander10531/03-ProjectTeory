@@ -1,4 +1,76 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
 main{
-    background-color: var(--E-Black);
+    position: relative;
     min-height: calc(100vh - 70px);
+    background-color: var(--E-Black);
+}
+
+.data-information{
+    left: 50%;
+    bottom: 0px;
+    position: absolute;
+    background: transparent;
+    border: 0px solid transparent;
+}
+
+.container-input{
+    right: 0%;
+    bottom: 0%;
+    width: 100vw;
+    height: 200px;
+    position: absolute;
+    animation: smoothIn .5s 1;
+    background: var(--F-Black);
+    box-shadow: 0px -8px 4px 0px rgba(0, 0, 0, 0.35);
+}
+
+.st0{
+    fill:#07E8B7;
+}
+
+.st1{
+    fill:none;
+    stroke-width:4;
+    stroke:#FFFFFF;
+}
+
+.container-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container{
+    height: 70%;
+}
+
+.breadcrumb{
+    height: 30%;
+}
+
+.button-action{
+    color: white;
+    padding: 5px 5px;
+    margin-right: 5px;
+    box-sizing: border-box;
+    background: transparent;
+    border-color: var(--E-Green);
+    border-width: 1px 1px 0px 1px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.active-button{
+    background-color: var(--E-Green);
+}
+
+@keyframes smoothIn{
+    from{
+        bottom: -200px;
+    }
+    to{
+        bottom: 0px;
+    }
 }

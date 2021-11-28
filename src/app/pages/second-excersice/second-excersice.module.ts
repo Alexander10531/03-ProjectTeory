@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SecondExcersiceComponent } from './second-excersice.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { SecondExcersiceComponent } from './second-excersice.component';
 import { SeconExcersiceRoutingModule } from './second-excersice-routing.module';
 
 @NgModule({
@@ -11,6 +12,7 @@ import { SeconExcersiceRoutingModule } from './second-excersice-routing.module';
     imports: [
         CommonModule,
         ComponentsModule,
+        FontAwesomeModule,
         SeconExcersiceRoutingModule,
     ],
     exports: [
