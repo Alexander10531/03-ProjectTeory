@@ -1,0 +1,7 @@
+1. Definir todas el bottombar y todas sus funciones. 
+----------------------------------Esto hasta solo con un carro------------------------------------------
+1. Investigar que el carro entre por la calle.
+2. Investigar como hacer circular el carro en forma de circulo. 
+3. Investigar como hacer que rota de manera que vuelva a retomar la calle. 
+----------------------------------Esto hasta solo con un carro------------------------------------------
+1. Realizar la correcion para que el usuario no escriba directamente en el input

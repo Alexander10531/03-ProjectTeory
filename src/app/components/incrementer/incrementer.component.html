@@ -1,0 +1,35 @@
+<div class="container-incrementer">
+    <h2
+        class="title-input">{{ renderInput.title }}</h2>
+    <div
+        *ngIf="renderInput.typeContainer=='incrementer'"
+        class="container-data">
+        <button
+            (click)="changeValueDecrementer(renderInput.index, -1)"
+            class="circular-button ml-5px">
+            <fa-icon [icon]="faMinus"></fa-icon>
+        </button>
+        <span>
+            {{ generalService.getIncrementerValue }}
+        </span>
+        <button
+            (click)="changeValueDecrementer(index = renderInput.index)"
+            class="circular-button mr-5px">
+            <fa-icon [icon]="faPlus"></fa-icon>
+        </button>
+    </div>
+    <div
+        *ngIf="renderInput.typeContainer=='input'" 
+        class="container-data"> 
+        <input 
+            [ngModel]="generalService.getInputValue()"
+            (keyup)="changeValueInput($event, renderInput.index)"
+            class="input-underline-wd"
+            type="text"
+            placeholder="3">
+    </div>
+    <h3
+        class="subtitle-button">
+        {{ renderInput.subNotes }}
+    </h3>
+</div>

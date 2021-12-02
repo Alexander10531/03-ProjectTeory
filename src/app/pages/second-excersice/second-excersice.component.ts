@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import { faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { ICar as car } from '../../utils/interface';
+import { generateRandomNumber } from '../../utils/functions'
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { IButtonBottomBar as buttonBottomBar} from '../../utils/interface';
+import { GeneralServicesService } from 'src/app/services/general-services.service';
+import { IParametersCar as parametersCar } from '../../utils/interface';
 
 @Component({
   selector: 'app-second-excersice',
@@ -9,8 +14,86 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 })
 export class SecondExcersiceComponent{
 
-    constructor() { }
-    faChevronUp : IconDefinition = faChevronUp;
+    prueba : number = 1; 
+    lastIndex: number = 0;  
+    actualIndex! : number ;
+    generatedCar: car[] = [];
     showInput : boolean = false;
+    controlInput! : buttonBottomBar[];
+    faTimes : IconDefinition = faTimes;
+    
+    constructor(public generalServices : GeneralServicesService){ 
+        this.generateCar();
+        //  Generacion de valores ingresados por el usuario. 
+        this.controlInput = this.generalServices.getControlInput();
+        this.generalServices.getIndex()
+            .subscribe((data : number) => {
+                this.actualIndex = data;
+            })
+        this.generalServices.setIndex(0);
+        
+    }
 
+    setActiveButton(index: number){
+        this.controlInput[this.actualIndex].active = false;
+        this.controlInput[index].active = true;
+        this.generalServices.setControlInput(this.controlInput);
+        this.generalServices.setIndex(index);
+        let numberButton : number[] = [1,2];
+        if(numberButton.includes(index)){
+            switch (index) {
+                case 1:
+                    this.generalServices.setInputValue(this.generalServices.getIntervalValue());
+                    break;
+                case 2:
+                    this.generalServices.setInputValue(this.generalServices.getRatioValue());
+                    break;
+            }
+        }
+    }
+    
+    generateCar(){
+        setInterval(()=>{
+            this.generatedCar.push({
+               id : this.lastIndex,
+               finalLane: generateRandomNumber(0,3),
+               initialLane: generateRandomNumber(0,3),
+           })
+           this.lastIndex += 1;
+       }, this.generalServices.getIntervalValue() * 1000)
+    }
+
+    getCoordinates(lane : number) : parametersCar{
+        let x : number = 0; 
+        let y : number = 0; 
+        let heigthCar : number = 26.8;
+        let widthCar : number = 16.4;
+        let angle: number = 0;         
+        
+        switch (lane){
+            case 0:
+                x = this.generalServices.getRatioValue() + 25;
+                angle = 0;
+                break;
+            case 1: 
+                x = (this.generalServices.getRatioValue() * 2) + (25 - widthCar);
+                y = this.generalServices.getRatioValue() + 25;
+                break;
+            case 2: 
+                x = (this.generalServices.getRatioValue() * 2) + (25 - widthCar);
+                y = this.generalServices.getRatioValue() + 25;
+                break;
+            default:
+                case 3: 
+                    x = 0;
+                    y = this.generalServices.getRatioValue() + 25;
+                    break;
+        }
+
+        return {
+            x, 
+            y, 
+            angle,
+        }
+    }
 }

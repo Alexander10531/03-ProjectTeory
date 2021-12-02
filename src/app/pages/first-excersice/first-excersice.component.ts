@@ -3,8 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IDestiny as destiny } from '../../utils/interface';
+import { generateRandomNumber } from '../../utils/functions';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { GeneralServicesService } from 'src/app/services/general-services.service';
 
 @Component({
   selector: 'app-first-excersice',
@@ -25,9 +27,10 @@ export class FirstExcersiceComponent{
     firstPrice : number = 0; 
     thirdPrice : number = 0; 
     normalPrice : number = 0; 
-    showData : boolean = true; 
+    showData : boolean = true;
     plus : IconDefinition = faPlus;
     valueProjection : destiny[] = []
+
     destiny : destiny[] = [
         { 
             name : "La Ceiba", 
@@ -95,7 +98,9 @@ export class FirstExcersiceComponent{
         }
     ]
 
-    constructor(private formBuilder : FormBuilder){
+    constructor(
+        private formBuilder : FormBuilder,
+        private generalService : GeneralServicesService){
         this.form = formBuilder.group({
             firstNumber : [
                 undefined, 
@@ -125,10 +130,6 @@ export class FirstExcersiceComponent{
 
     changeState(valueBool : boolean){
         this.showData = valueBool; 
-    }
-    
-    generateRandomNumber(min : number, max : number) : number{
-        return Math.floor((Math.random() * (max - min + 1)) + min);
     }
 
     // Fix iterations on calculatePrediction
@@ -182,9 +183,9 @@ export class FirstExcersiceComponent{
     }
 
     fillRandomNumber(){
-        const randomFirst = this.generateRandomNumber(0, 10);
-        const randomNormal = this.generateRandomNumber(0, 40 - randomFirst);
-        const randomThird = this.generateRandomNumber(0, 40 - ( randomFirst + randomNormal ));
+        const randomFirst = generateRandomNumber(0, 10);
+        const randomNormal = generateRandomNumber(0, 30 - randomFirst);
+        const randomThird = generateRandomNumber(0, 30 - ( randomFirst + randomNormal));
         this.form.get('firstNumber')?.setValue(randomFirst);    
         this.form.get('turistNumber')?.setValue(randomNormal);    
         this.form.get('thirdNumber')?.setValue(randomThird);    
