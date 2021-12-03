@@ -12,7 +12,26 @@
         viewbox="0 0 450 450"
         attr.width="{{ (generalServices.getRatioValue() * 2) + 50}}"
     	attr.height="{{ (generalServices.getRatioValue() * 2) + 50}}" >
-    	<circle 
+    	<defs>
+            <g id="car">
+                <path class="st0-car" d="M5.7,36.8l-4.9-1.3c0,0-0.7-1.7,0.1-2.7c0-0.1,0.1-0.1,0.1-0.1C2.1,31.7,5.7,36.8,5.7,36.8z"/>
+                <path class="st0-car" d="M26.6,37l4.9-1.3c0,0,0.7-1.7-0.1-2.7c0-0.1-0.1-0.1-0.1-0.1C30.2,31.9,26.6,37,26.6,37z"/>
+                <path class="st0-car" d="M25,52.2c0,0-12.7,1.8-17.7,0c0,0-4-0.8-3.2-15.1S4.5,3.4,4.5,3.4S11.2-2.8,27.4,3L28.1,37
+                    C28.1,37,28.1,50.7,25,52.2z"/>
+                <polygon class="st1-car" points="26.3,10.1 26.2,34.3 24.4,28.1 24.6,14.1 	"/>
+                <path class="st2-car" d="M6.7,50.9l0.8,1.3l4.3,0.3c0,0-2.9-1.6-4.6-2.3C6.8,50.1,6.5,50.6,6.7,50.9z"/>
+                <polygon class="st1-car" points="5.9,10 6,34.2 7.9,28 7.6,14 	"/>
+                <path class="st1-car" d="M23.7,29.5l2.1,8.3c0,0-8.2,3.9-19.1,0l1.8-8.2L23.7,29.5z"/>
+                <path class="st3-car" d="M26,40"/>
+                <path class="st1-car" d="M8.6,4.8h15.1c0.7,0,1.2,0.5,1.2,1.2v4.9c0,0.9-0.7,1.5-1.5,1.5H9c-0.9,0-1.5-0.7-1.5-1.5V6
+                    C7.4,5.3,8,4.8,8.6,4.8z"/>
+                <path class="st2-car" d="M25.1,50.8l-0.8,1.3L20,52.4c0,0,2.9-1.6,4.6-2.3C25,50,25.3,50.4,25.1,50.8z"/>
+                <polyline class="st3-car" points="20.6,29.7 19.2,31.1 13.3,31.1 11.7,29.5 	"/>
+                <line class="st3-car" x1="23.9" y1="38.4" x2="16.6" y2="31.1"/>
+                <line class="st3-car" x1="21.4" y1="39.1" x2="13.6" y2="31.2"/>
+            </g>
+        </defs>
+        <circle 
             class="st0-road" 
             attr.cx="{{ generalServices.getRatioValue() + 25}}" 
             attr.cy="{{ generalServices.getRatioValue() + 25}}" 
@@ -21,7 +40,7 @@
             class="st1-road" 
             attr.cx="{{ generalServices.getRatioValue() + 25}}" 
             attr.cy="{{ generalServices.getRatioValue() + 25}}" 
-            attr.r="{{ generalServices.getRatioValue() - 30}}"/>
+            attr.r="{{ generalServices.getRatioValue() - 90}}"/>
         <!-- 
             Las coordenadas para este seran
             x = 0
@@ -29,10 +48,10 @@
         -->
         <rect 
             class="st0-road" 
-            height="70" 
-            width="30"
+            height="100" 
+            width="35"
             x="0"
-            attr.y="{{ generalServices.getRatioValue() - 5 }}"/>
+            attr.y="{{ generalServices.getRatioValue() - 15 }}"/>
         <!-- 
             Las coordenadas para este seran
             x = diametro + 20
@@ -40,10 +59,10 @@
         -->
         <rect 
             class="st0-road" 
-            height="70" 
-            width="30"
-            attr.x="{{ (generalServices.getRatioValue() * 2) + 20}}"
-            attr.y="{{ generalServices.getRatioValue() - 5 }}"/>
+            height="100" 
+            width="35"
+            attr.x="{{ (generalServices.getRatioValue() * 2) + 15}}"
+            attr.y="{{ generalServices.getRatioValue() - 15 }}"/>
         <!-- 
             Las coordenadas para este seran
             x = radio - 5
@@ -51,9 +70,9 @@
         -->
         <rect 
             class="st0-road" 
-            height="30" 
-            width="70"
-            attr.x="{{ generalServices.getRatioValue() - 5}}"
+            height="35" 
+            width="100"
+            attr.x="{{ generalServices.getRatioValue() - 15}}"
             y="0"/>
         <!-- 
             Las coordenadas para este seran
@@ -62,35 +81,17 @@
         --> 
         <rect 
             class="st0-road" 
-            height="30" 
-            width="70"
-            attr.y="{{ (generalServices.getRatioValue() * 2) + 20}}"
-            attr.x="{{ generalServices.getRatioValue() - 5 }}"/>
-        <g 
+            height="35" 
+            width="100"
+            attr.y="{{ (generalServices.getRatioValue() * 2) + 15}}"
+            attr.x="{{ generalServices.getRatioValue() - 15 }}"/>
+        <use
             *ngFor="let car of generatedCar"
-            class="car">
-            <svg
-                x="225" 
-                y="433.6" 
-                width="16.4px"
-                height="26.8px">
-                    <path class="st0-car" d="M13.4,8.5l2.4,0.6c0,0,0.3,0.8-0.1,1.3c0,0,0,0-0.1,0.1C15.1,11,13.4,8.5,13.4,8.5z"/>
-                    <path class="st0-car" d="M3,8.4L0.6,9c0,0-0.3,0.8,0.1,1.3c0,0,0,0,0.1,0.1C1.3,10.9,3,8.4,3,8.4z"/>
-                    <path class="st0-car" d="M3.8,0.9c0,0,6.2-0.9,8.7,0c0,0,2,0.4,1.6,7.5s-0.2,16.6-0.2,16.6S10.6,28,2.6,25.1L2.3,8.4
-                    C2.3,8.4,2.3,1.6,3.8,0.9z"/>
-                    <polygon class="st1-car" points="3.2,21.6 3.2,9.7 4.1,12.7 4,19.6 	"/>
-                    <path class="st2-car" d="M12.8,1.5l-0.4-0.6l-2.1-0.2c0,0,1.4,0.8,2.2,1.1C12.8,1.9,13,1.7,12.8,1.5z"/>
-                    <polygon class="st1-car" points="13.2,21.7 13.2,9.7 12.3,12.8 12.4,19.7 	"/>
-                    <path class="st1-car" d="M4.5,12.1L3.4,8c0,0,4-1.9,9.4,0l-0.9,4L4.5,12.1z"/>
-                    <path class="st3" d="M3.3,6.9"/>
-                    <path class="st1-car" d="M11.3,24.2H5.1c-0.7,0-1.2-0.5-1.2-1.2v-1c0-0.9,0.7-1.5,1.5-1.5h5.5c0.9,0,1.5,0.7,1.5,1.5v1
-                        C12.5,23.7,11.9,24.2,11.3,24.2z"/>
-                    <path class="st2-car" d="M3.8,1.6L4.2,1l2.1-0.2c0,0-1.4,0.8-2.2,1.1C3.9,2,3.7,1.8,3.8,1.6z"/>
-                    <polyline class="st3" points="6,12 6.7,11.3 9.6,11.3 10.4,12 	"/>
-                    <line class="st3" x1="4.4" y1="7.7" x2="8" y2="11.3"/>
-                    <line class="st3" x1="5.6" y1="7.3" x2="9.5" y2="11.2"/>
-            </svg>
-        </g>
+            xlink:href="#car"
+            attr.x="{{ 0 }}"
+            attr.y="{{ 0 }}"
+            attr.transform="rotate({{ 0 }}, {{ 0 }}, {{ 0 }})">
+        </use>    
     </svg>
     <button 
         (click)="showInput = !showInput"

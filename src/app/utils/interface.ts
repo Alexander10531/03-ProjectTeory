@@ -22,10 +22,14 @@ export interface IChangeValue{
 }
 
 export interface ICar{
+    x: number, 
+    y: number, 
     id: number, 
+    angle: number,
     finalLane: number, 
     initialLane: number,
 }
+
 
 export interface IParametersCar{
     x: number, 

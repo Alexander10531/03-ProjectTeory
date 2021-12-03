@@ -1,3 +1,7 @@
+.test-svg{
+    background-color: red;
+}
+
 *{
     margin: 0px;
     padding: 0px;
@@ -10,10 +14,6 @@ main{
     justify-content: center;
     min-height: calc(100vh - 70px);
     background-color: var(--E-Black);
-}
-
-.test-svg{
-    background-color: red;
 }
 
 .data-information{
@@ -87,10 +87,6 @@ main{
 }
 .st1-road{
     fill:var(--E-Black);
-}
-
-.car{
-    transform-origin: center;
 }
 
 .st0-car{

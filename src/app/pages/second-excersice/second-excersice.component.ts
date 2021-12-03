@@ -5,7 +5,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { IButtonBottomBar as buttonBottomBar} from '../../utils/interface';
 import { GeneralServicesService } from 'src/app/services/general-services.service';
-import { IParametersCar as parametersCar } from '../../utils/interface';
+import { IParametersCar as parametersCar } from "../../utils/interface";
 
 @Component({
   selector: 'app-second-excersice',
@@ -53,41 +53,36 @@ export class SecondExcersiceComponent{
     }
     
     generateCar(){
+        this.createCarData();        
         setInterval(()=>{
-            this.generatedCar.push({
-               id : this.lastIndex,
-               finalLane: generateRandomNumber(0,3),
-               initialLane: generateRandomNumber(0,3),
-           })
-           this.lastIndex += 1;
+            this.createCarData();
        }, this.generalServices.getIntervalValue() * 1000)
     }
 
     getCoordinates(lane : number) : parametersCar{
         let x : number = 0; 
         let y : number = 0; 
-        let heigthCar : number = 26.8;
+        let angle: number = 0;      
         let widthCar : number = 16.4;
-        let angle: number = 0;         
-        
+        let heigthCar : number = 26.8;
         switch (lane){
             case 0:
                 x = this.generalServices.getRatioValue() + 25;
-                angle = 0;
                 break;
             case 1: 
-                x = (this.generalServices.getRatioValue() * 2) + (25 - widthCar);
+                angle = 90;
                 y = this.generalServices.getRatioValue() + 25;
+                x = (this.generalServices.getRatioValue() * 2) + (25 - widthCar);
                 break;
             case 2: 
-                x = (this.generalServices.getRatioValue() * 2) + (25 - widthCar);
-                y = this.generalServices.getRatioValue() + 25;
+                angle = 180;
+                x = this.generalServices.getRatioValue() + 25;
+                y = (this.generalServices.getRatioValue() * 2) + 25;
                 break;
-            default:
-                case 3: 
-                    x = 0;
-                    y = this.generalServices.getRatioValue() + 25;
-                    break;
+            case 3: 
+                y = this.generalServices.getRatioValue() + 25;
+                angle = 270;
+                break;
         }
 
         return {
@@ -96,4 +91,19 @@ export class SecondExcersiceComponent{
             angle,
         }
     }
-}
+
+    createCarData(){
+        let initialLane = generateRandomNumber(0,3);
+        let finalLane = generateRandomNumber(0,3);
+        this.generatedCar.push({
+            id : this.lastIndex,
+            finalLane: initialLane,
+            initialLane: finalLane,
+            x: this.getCoordinates(initialLane).x,
+            y: this.getCoordinates(initialLane).y,
+            angle: this.getCoordinates(initialLane).angle,
+        })
+       this.lastIndex += 1;
+    }
+
+}   

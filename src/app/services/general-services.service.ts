@@ -11,10 +11,9 @@ export class GeneralServicesService {
     private inputValue! : number; 
     private ratioValue : number = 200; 
     private numberOfLanes: number = 2; 
-    private intervalValue: number = 1; 
+    private intervalValue: number = 150; 
     private index$ = new Subject<number>();
     private incrementerValue: number = this.getNumberOfLanes;
-    
     private controlInput : buttonBottomBar[] = [
         {
             index: 0,
