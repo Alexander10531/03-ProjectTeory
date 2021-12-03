@@ -11,12 +11,20 @@ export class GeneralServicesService {
     private inputValue! : number; 
     private ratioValue : number = 200; 
     private numberOfLanes: number = 2; 
-    private intervalValue: number = 150; 
+    private intervalValue: number = 1; 
     private index$ = new Subject<number>();
     private incrementerValue: number = this.getNumberOfLanes;
     private controlInput : buttonBottomBar[] = [
+        // {
+        //     index: 0,
+        //     active: true,
+        //     subNotes: "Min:2, Max:4",
+        //     typeContainer: "incrementer",
+        //     buttonTitle: "Numero de carriles",
+        //     title: "Ingrese la cantidad de carriles",
+        // },
         {
-            index: 1,
+            index: 0,
             active: true,
             typeContainer: "input",
             subNotes: "Dato en segundo",
@@ -24,7 +32,7 @@ export class GeneralServicesService {
             title: "Ingrese el intervalo sobre el que entrara un carro a la simulacion",
         },
         {
-            index: 2,
+            index: 1,
             active: false, 
             typeContainer: "input",
             buttonTitle: "Radio de rotonda",

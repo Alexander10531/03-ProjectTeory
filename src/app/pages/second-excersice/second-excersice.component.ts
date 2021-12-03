@@ -14,7 +14,6 @@ import { IParametersCar as parametersCar } from "../../utils/interface";
 })
 export class SecondExcersiceComponent{
 
-    prueba : number = 1; 
     lastIndex: number = 0;  
     actualIndex! : number ;
     generatedCar: car[] = [];
@@ -39,13 +38,13 @@ export class SecondExcersiceComponent{
         this.controlInput[index].active = true;
         this.generalServices.setControlInput(this.controlInput);
         this.generalServices.setIndex(index);
-        let numberButton : number[] = [1,2];
+        let numberButton : number[] = [0,1];
         if(numberButton.includes(index)){
             switch (index) {
-                case 1:
+                case 0:
                     this.generalServices.setInputValue(this.generalServices.getIntervalValue());
                     break;
-                case 2:
+                case 1:
                     this.generalServices.setInputValue(this.generalServices.getRatioValue());
                     break;
             }

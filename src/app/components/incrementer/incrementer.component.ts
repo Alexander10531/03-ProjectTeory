@@ -31,24 +31,23 @@ export class IncrementerComponent implements OnInit, OnChanges{
     changeValueDecrementer(index : number, incDecValue : number = 1){
 
         switch(index){
-            case 0: 
-                this.generalService.setNumberLanes(incDecValue)
-                break; 
+            // case 0: 
+            //     this.generalService.setNumberLanes(incDecValue)
+            //     break; 
         }
 
     }
 
     changeValueInput(e : any, index: number){
         switch (index) {
-            case 1:
+            case 0:
                 if(!isNaN((Number(e.target.value)))){
                     this.generalService.setIntervalValue(Number(e.target.value));
                     this.generalService.setInputValue(Number(e.target.value));
                 }
                 break;
-            case 2:
+            case 1:
                 if(!isNaN((Number(e.target.value)))){
-                    console.log(typeof(e.target.value))
                     this.generalService.setRatioValue(Number(e.target.value));
                     this.generalService.setInputValue(Number(e.target.value));
                 } 
