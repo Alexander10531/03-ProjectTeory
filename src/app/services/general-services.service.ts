@@ -16,16 +16,8 @@ export class GeneralServicesService {
     private incrementerValue: number = this.getNumberOfLanes;
     private controlInput : buttonBottomBar[] = [
         {
-            index: 0,
-            active: true,
-            subNotes: "Min:2, Max:4",
-            typeContainer: "incrementer",
-            buttonTitle: "Numero de carriles",
-            title: "Ingrese la cantidad de carriles",
-        },
-        {
             index: 1,
-            active: false,
+            active: true,
             typeContainer: "input",
             subNotes: "Dato en segundo",
             buttonTitle: "Intervalo de ingreso",

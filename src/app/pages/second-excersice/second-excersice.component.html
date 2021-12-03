@@ -1,7 +1,7 @@
 <!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In  -->
 
 <!-- 
-    El radio ira desde 150 a 250
+    El radio ira desde 160 a 260
 -->
 <app-header></app-header>
 <main>
@@ -87,10 +87,11 @@
             attr.x="{{ generalServices.getRatioValue() - 15 }}"/>
         <use
             *ngFor="let car of generatedCar"
+            class="car"
             xlink:href="#car"
-            attr.x="{{ 0 }}"
-            attr.y="{{ 0 }}"
-            attr.transform="rotate({{ 0 }}, {{ 0 }}, {{ 0 }})">
+            attr.x="{{ car.x }}"
+            attr.y="{{ car.y }}"
+            attr.transform="rotate({{ car.angle }}, {{ car.x }}, {{ car.y }})">
         </use>    
     </svg>
     <button 

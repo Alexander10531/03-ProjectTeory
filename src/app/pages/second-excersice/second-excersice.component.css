@@ -113,6 +113,10 @@ main{
     stroke-miterlimit:10;
 }
 
+.car{
+    /* transform-origin: center; */
+}
+
 @keyframes smoothIn{
     from{
         bottom: -200px;

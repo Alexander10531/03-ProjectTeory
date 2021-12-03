@@ -63,24 +63,26 @@ export class SecondExcersiceComponent{
         let x : number = 0; 
         let y : number = 0; 
         let angle: number = 0;      
-        let widthCar : number = 16.4;
-        let heigthCar : number = 26.8;
+        let dimensionCarA : number = 53;
+        let dimensionCarB : number = 32;
         switch (lane){
             case 0:
-                x = this.generalServices.getRatioValue() + 25;
+                x = this.generalServices.getRatioValue() + (75 - dimensionCarB);
+                y = -dimensionCarA;
                 break;
             case 1: 
                 angle = 90;
-                y = this.generalServices.getRatioValue() + 25;
-                x = (this.generalServices.getRatioValue() * 2) + (25 - widthCar);
+                y = this.generalServices.getRatioValue() + (75 - dimensionCarB);
+                x = (this.generalServices.getRatioValue() * 2) + (55 + dimensionCarA);
                 break;
             case 2: 
                 angle = 180;
                 x = this.generalServices.getRatioValue() + 25;
-                y = (this.generalServices.getRatioValue() * 2) + 25;
+                y = (this.generalServices.getRatioValue() * 2) + (50 + dimensionCarA);
                 break;
             case 3: 
                 y = this.generalServices.getRatioValue() + 25;
+                x = - dimensionCarA;
                 angle = 270;
                 break;
         }
