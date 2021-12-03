@@ -38,6 +38,20 @@ export class GeneralServicesService {
             buttonTitle: "Radio de rotonda",
             subNotes: "El radio se encontrara en metros",
             title: "Ingrese el radio que desea que tenga la rotonda",
+        },
+        {
+            index: 2, 
+            active: false, 
+            typeContainer : "button",
+            buttonTitle: "Iniciar simulacion",
+            title: "La simulacion se inicio"
+        },
+        {
+            index: 3, 
+            active: false, 
+            typeContainer: "button",
+            buttonTitle: "Detener simulacion",
+            title: "La simulacion se detuvo",
         }
     ]
 

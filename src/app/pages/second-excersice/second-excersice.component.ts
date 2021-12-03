@@ -14,6 +14,7 @@ import { IParametersCar as parametersCar } from "../../utils/interface";
 })
 export class SecondExcersiceComponent{
 
+    start: boolean = false; 
     lastIndex: number = 0;  
     actualIndex! : number ;
     generatedCar: car[] = [];
@@ -23,7 +24,6 @@ export class SecondExcersiceComponent{
     
     constructor(public generalServices : GeneralServicesService){ 
         this.generateCar();
-        //  Generacion de valores ingresados por el usuario. 
         this.controlInput = this.generalServices.getControlInput();
         this.generalServices.getIndex()
             .subscribe((data : number) => {
@@ -38,7 +38,7 @@ export class SecondExcersiceComponent{
         this.controlInput[index].active = true;
         this.generalServices.setControlInput(this.controlInput);
         this.generalServices.setIndex(index);
-        let numberButton : number[] = [0,1];
+        let numberButton : number[] = [0,1,2,3];
         if(numberButton.includes(index)){
             switch (index) {
                 case 0:
@@ -47,14 +47,26 @@ export class SecondExcersiceComponent{
                 case 1:
                     this.generalServices.setInputValue(this.generalServices.getRatioValue());
                     break;
+                case 2:
+                    this.start = true; 
+                    break;
+                case 3: 
+                    this.start = false;   
+                    console.log("Se limpio la data")
+                    this.cleanData();
             }
         }
+
     }
     
     generateCar(){
         this.createCarData();        
         setInterval(()=>{
-            this.createCarData();
+            if(this.start){
+                this.createCarData();
+            }else{
+                this.generatedCar = [];
+            }
        }, this.generalServices.getIntervalValue() * 1000)
     }
 
@@ -107,4 +119,8 @@ export class SecondExcersiceComponent{
        this.lastIndex += 1;
     }
 
-}   
+    cleanData(){
+        this.generatedCar = [];
+    }
+
+}       
