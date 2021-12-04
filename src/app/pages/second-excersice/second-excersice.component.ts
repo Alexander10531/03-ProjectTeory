@@ -23,6 +23,7 @@ export class SecondExcersiceComponent{
     faTimes : IconDefinition = faTimes;
     
     constructor(public generalServices : GeneralServicesService){ 
+        this.generalServices.setInputValue(this.generalServices.getIntervalValue());
         this.controlInput = this.generalServices.getControlInput();
         this.generalServices.getIndex()
             .subscribe((data : number) => {
@@ -50,10 +51,12 @@ export class SecondExcersiceComponent{
             case 3:
                 this.generateCar();
                 this.moveCar();
+                this.disableButton([0,1,2,3])
                 this.start = true; 
                 break;
             case 4: 
-                this.start = false;   
+                this.start = false;
+                this.disableButton([4]);
                 this.cleanData();
 
         }
@@ -161,5 +164,15 @@ export class SecondExcersiceComponent{
                 }
                 break; 
         }        
+    }
+
+    disableButton(disable : number[]){
+        for(let i = 0; i < this.controlInput.length; i++){
+            if(disable.includes(this.controlInput[i].index)){
+                this.controlInput[i].disable = true;
+            }else{
+                this.controlInput[i].disable = false;
+            }            
+        }
     }
 }       

@@ -9,24 +9,17 @@ import { IButtonBottomBar as buttonBottomBar } from '../utils/interface';
 export class GeneralServicesService {
 
     private inputValue! : number; 
-    private speedValue: number = 10; 
+    private speedValue: number = 15; 
     private ratioValue : number = 200; 
     private numberOfLanes: number = 2; 
-    private intervalValue: number = 1; 
+    private intervalValue: number = 10; 
     private index$ = new Subject<number>();
     private incrementerValue: number = this.getNumberOfLanes;
     private controlInput : buttonBottomBar[] = [
-        // {
-        //     index: 0,
-        //     active: true,
-        //     subNotes: "Min:2, Max:4",
-        //     typeContainer: "incrementer",
-        //     buttonTitle: "Numero de carriles",
-        //     title: "Ingrese la cantidad de carriles",
-        // },
         {
             index: 0,
             active: true,
+            disable: false,
             typeContainer: "input",
             subNotes: "Dato en segundo",
             buttonTitle: "Intervalo de ingreso",
@@ -35,32 +28,36 @@ export class GeneralServicesService {
         {
             index: 1,
             active: false, 
+            disable: false,
             typeContainer: "input",
             buttonTitle: "Radio de rotonda",
             subNotes: "El radio se encontrara en metros",
             title: "Ingrese el radio que desea que tenga la rotonda",
         },
         {
-            index: 2, 
+            index: 2,
             active: false, 
+            disable: false,
             typeContainer: "input", 
             buttonTitle: "Velocidad vehiculos",
+            subNotes: "Velocidad minima: 10, Velocidad maxima: 30",
             title: "Ingrese la velocidad del vehiculo en metros/segundos",
-            subNotes: "Velocidad minima: 10, Velocidad maxima: 30"
         },
         {
             index: 3, 
             active: false, 
+            disable: false,
             typeContainer : "button",
+            title: "La simulacion se inicio",
             buttonTitle: "Iniciar simulacion",
-            title: "La simulacion se inicio"
         },
         {
             index: 4, 
             active: false, 
+            disable: true,
             typeContainer: "button",
-            buttonTitle: "Reiniciar simulacion",
             title: "La simulacion se detuvo",
+            buttonTitle: "Reiniciar simulacion",
         },
     ]
     

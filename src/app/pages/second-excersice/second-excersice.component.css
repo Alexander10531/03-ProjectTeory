@@ -70,7 +70,7 @@ main{
 }
 
 .active-button{
-    background-color: var(--E-Green);
+    background-color: var(--E-Green) !important;
 }
 
 .close-button{
@@ -113,8 +113,9 @@ main{
     stroke-miterlimit:10;
 }
 
-.car{
-    /* transform-origin: center; */
+.button-action:disabled{
+    border-color: gray;
+    color: rgba(255, 255, 255, 0.096);
 }
 
 @keyframes smoothIn{

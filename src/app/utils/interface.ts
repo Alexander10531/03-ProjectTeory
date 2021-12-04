@@ -13,6 +13,7 @@ export interface IButtonBottomBar{
     subNotes?: string,
     buttonTitle: string,
     typeContainer: string,
+    disable: boolean,
 }
 
 export interface IChangeValue{

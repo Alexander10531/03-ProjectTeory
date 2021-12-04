@@ -29,13 +29,6 @@ export class IncrementerComponent implements OnInit, OnChanges{
     }
 
     changeValueDecrementer(index : number, incDecValue : number = 1){
-
-        switch(index){
-            // case 0: 
-            //     this.generalService.setNumberLanes(incDecValue)
-            //     break; 
-        }
-
     }
 
     changeValueInput(e : any, index: number){
