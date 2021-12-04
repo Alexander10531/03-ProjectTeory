@@ -61,13 +61,13 @@ export class SecondExcersiceComponent{
     
     generateCar(){
         this.createCarData();        
-    //     setInterval(()=>{
-    //         if(this.start){
-    //             this.createCarData();
-    //         }else{
-    //             this.generatedCar = [];
-    //         }
-    //    }, this.generalServices.getIntervalValue() * 1000)
+        setInterval(()=>{
+            if(this.start){
+                this.createCarData();
+            }else{
+                this.generatedCar = [];
+            }
+       }, this.generalServices.getIntervalValue() * 1000)
     }
 
     getCoordinates(lane : number) : parametersCar{
@@ -126,8 +126,8 @@ export class SecondExcersiceComponent{
     moveCar(){
         setInterval(()=>{
             if(this.start){
-                for(let car = 0; car < this.generatedCar.length; car++){
-                    this.lineMove(car);
+                for(let i = 0; i < this.generatedCar.length; i++){
+                    this.lineMove(i);
                 }
             }
 
@@ -138,29 +138,28 @@ export class SecondExcersiceComponent{
         switch(this.generatedCar[index].initialLane){
             case 0:
                 this.generatedCar[index].y +=1;
-                if(this.generatedCar[index].y == 18){
-                    this.start = false;
+                if(this.generatedCar[index].y > 10){
+                    this.generatedCar[index].angle += 1; 
                 }
                 break;  
             case 1: 
                 this.generatedCar[index].x -= 1;
-                if(this.generatedCar[index].x == (this.generalServices.getRatioValue() * 2) + 50 - 18){
-                    this.start = false; 
+                if(this.generatedCar[index].x < (this.generalServices.getRatioValue() * 2) + 50 - 18){
+                    this.generatedCar[index].angle += 1;
                 }
                 break; 
             case 2:
-                this.generatedCar[index].y +=- 1;
-                if(this.generatedCar[index].y == (this.generalServices.getRatioValue() * 2) + 50 - 18){
-                    this.start = false; 
+                this.generatedCar[index].y -= 1;
+                if(this.generatedCar[index].y < (this.generalServices.getRatioValue() * 2) + 50 - 18){
+                    this.generatedCar[index].angle += 1;
                 }
                 break; 
             case 3:
                 this.generatedCar[index].x +=+ 1;
-                if(this.generatedCar[index].x == 18){
-                    this.start = false; 
+                if(this.generatedCar[index].x > 18){
+                    this.generatedCar[index].angle += 1;
                 }
                 break; 
         }        
     }
-
 }       
