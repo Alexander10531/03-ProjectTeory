@@ -9,6 +9,7 @@ import { IButtonBottomBar as buttonBottomBar } from '../utils/interface';
 export class GeneralServicesService {
 
     private inputValue! : number; 
+    private speedValue: number = 10; 
     private ratioValue : number = 200; 
     private numberOfLanes: number = 2; 
     private intervalValue: number = 1; 
@@ -42,19 +43,27 @@ export class GeneralServicesService {
         {
             index: 2, 
             active: false, 
+            typeContainer: "input", 
+            buttonTitle: "Velocidad vehiculos",
+            title: "Ingrese la velocidad del vehiculo en metros/segundos",
+            subNotes: "Velocidad minima: 10, Velocidad maxima: 30"
+        },
+        {
+            index: 3, 
+            active: false, 
             typeContainer : "button",
             buttonTitle: "Iniciar simulacion",
             title: "La simulacion se inicio"
         },
         {
-            index: 3, 
+            index: 4, 
             active: false, 
             typeContainer: "button",
-            buttonTitle: "Detener simulacion",
+            buttonTitle: "Reiniciar simulacion",
             title: "La simulacion se detuvo",
-        }
+        },
     ]
-
+    
     getControlInput(): buttonBottomBar[]{
         return this.controlInput;
     }
@@ -113,4 +122,13 @@ export class GeneralServicesService {
     setInputValue(newValue : number){
         this.inputValue = newValue;
     }
+
+    getSpeed() : number{
+        return this.speedValue;
+    }
+
+    setSpeed(newSpeed : number){
+        this.speedValue = newSpeed; 
+    }
+
 }
