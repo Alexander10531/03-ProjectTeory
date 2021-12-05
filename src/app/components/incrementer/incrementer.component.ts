@@ -12,11 +12,11 @@ import { GeneralServicesService } from '../../services/general-services.service'
 })
 export class IncrementerComponent implements OnInit, OnChanges{
 
+    proof : number = 3;
     @Input() index! : number; 
     renderInput! : buttonBottomBar; 
     faPlus : IconDefinition = faPlus; 
     faMinus : IconDefinition = faMinus;
-    proof : number = 3;
     constructor(public generalService : GeneralServicesService){ 
     }
 

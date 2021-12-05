@@ -21,6 +21,7 @@ export class SecondExcersiceComponent{
     showInput : boolean = false;
     controlInput! : buttonBottomBar[];
     faTimes : IconDefinition = faTimes;
+    distanceArch : number[][] = [[1, 3/4, 1/2, 1/4], [1/4, 1, 3/4, 1/2], [1/2, 3/4, 1, 1/4], [ 1/4, 1/2, 3/4, 1 ]];
     
     constructor(public generalServices : GeneralServicesService){ 
         this.generalServices.setInputValue(this.generalServices.getIntervalValue());
@@ -30,7 +31,6 @@ export class SecondExcersiceComponent{
                 this.actualIndex = data;
             })
         this.generalServices.setIndex(0);
-        
     }
 
     setActiveButton(index: number){
@@ -112,6 +112,12 @@ export class SecondExcersiceComponent{
         let initialLane = generateRandomNumber(0,3);
         let finalLane = generateRandomNumber(0,3);
         this.generatedCar.push({
+            period: 0,
+            status: "line",
+            changePeriodX: 0, 
+            circularAngle: 0, 
+            changePeriodY: 0,
+            distanceTraveled: 0, 
             id : this.lastIndex,
             finalLane: finalLane,
             initialLane: initialLane,
@@ -130,7 +136,14 @@ export class SecondExcersiceComponent{
         setInterval(()=>{
             if(this.start){
                 for(let i = 0; i < this.generatedCar.length; i++){
-                    this.lineMove(i);
+                    switch (this.generatedCar[i].status) {
+                        case "line":
+                            this.lineMove(i);
+                            break;
+                        case "circular":
+                            this.circularMove(i)
+                        
+                    }
                 }
             }
 
@@ -138,29 +151,34 @@ export class SecondExcersiceComponent{
     }
 
     lineMove(index : number){
+        this.generatedCar[index].distanceTraveled += 1; 
+        if(this.generatedCar[index].distanceTraveled >= 85){
+            this.generatedCar[index].status = "circular"
+            this.generatedCar[index].distanceTraveled = 0 
+        }
         switch(this.generatedCar[index].initialLane){
             case 0:
                 this.generatedCar[index].y +=1;
                 if(this.generatedCar[index].y > 10){
-                    this.generatedCar[index].angle += 1; 
+                    this.generatedCar[index].angle += 2; 
                 }
                 break;  
             case 1: 
                 this.generatedCar[index].x -= 1;
                 if(this.generatedCar[index].x < (this.generalServices.getRatioValue() * 2) + 50 - 18){
-                    this.generatedCar[index].angle += 1;
+                    this.generatedCar[index].angle += 2;
                 }
                 break; 
             case 2:
                 this.generatedCar[index].y -= 1;
                 if(this.generatedCar[index].y < (this.generalServices.getRatioValue() * 2) + 50 - 18){
-                    this.generatedCar[index].angle += 1;
+                    this.generatedCar[index].angle += 2;
                 }
                 break; 
             case 3:
                 this.generatedCar[index].x +=+ 1;
                 if(this.generatedCar[index].x > 18){
-                    this.generatedCar[index].angle += 1;
+                    this.generatedCar[index].angle += 2;
                 }
                 break; 
         }        
@@ -175,4 +193,55 @@ export class SecondExcersiceComponent{
             }            
         }
     }
+
+    circularMove(index : number){
+        let periodX : number; 
+        let periodY : number; 
+        switch (this.generatedCar[index].initialLane) {
+            case 0:
+                periodX = 1; 
+                periodY = 2; 
+                if(this.generatedCar[index].period == 0){
+                    this.generatedCar[index].changePeriodX = -1;
+                    this.generatedCar[index].changePeriodY = 1;
+                }
+                if(this.generatedCar[index].period != 0 && this.generatedCar[index].period / periodX){
+                    this.generatedCar[index].changePeriodX -= this.generatedCar[index].changePeriodX;
+                }
+                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY; 
+                break;
+            case 1:
+                periodX = 2; 
+                periodY = 3; 
+                if(this.generatedCar[index].period == 0){
+                    this.generatedCar[index].changePeriodX = -1;
+                    this.generatedCar[index].changePeriodY = -1;
+                }
+                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY; 
+                break;
+            case 2:
+                periodX = 2; 
+                periodY = 3; 
+                if(this.generatedCar[index].period == 0){
+                    this.generatedCar[index].changePeriodX = +1;
+                    this.generatedCar[index].changePeriodY = -1;
+                }
+                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY; 
+                break;
+            case 3:
+                periodX = 1; 
+                periodY = 2; 
+                if(this.generatedCar[index].period == 0){
+                    this.generatedCar[index].changePeriodX = 1;
+                    this.generatedCar[index].changePeriodY = 1;
+                }
+                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY;     
+                break;
+        }
+    }
+
 }       

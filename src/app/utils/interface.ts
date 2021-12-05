@@ -27,8 +27,14 @@ export interface ICar{
     y: number, 
     id: number, 
     angle: number,
-    finalLane: number, 
+    period: number;
+    status: string,
+    finalLane: number,
     initialLane: number,
+    changePeriodX: number, 
+    changePeriodY: number, 
+    circularAngle : number,  
+    distanceTraveled: number,
 }
 
 
