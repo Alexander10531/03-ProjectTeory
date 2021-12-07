@@ -51,19 +51,22 @@ export class SecondExcersiceComponent{
             case 2:
                 this.generalServices.setInputValue(this.generalServices.getSpeed()); 
                 break; 
-            case 3:
+            case 3: 
+                this.generalServices.setInputValue(this.generalServices.getSpeedSimulation());
+                break; 
+            case 4:
                 this.quarterCircunferece = Math.round((((this.generalServices.getRatioValue() - 60) * 2) * Math.PI) / 4);
                 this.generateCar();
                 if(!this.onlyOnestart){ 
                     this.moveCar();
                 }
-                this.disableButton([0,1,2,3])
+                this.disableButton([0,1,2,3,4])
                 this.onlyOnestart = true
                 this.start = true; 
                 break;
-            case 4: 
+            case 5: 
                 this.start = false;
-                this.disableButton([4]);
+                this.disableButton([5]);
                 this.cleanData();
 
         }
@@ -160,7 +163,7 @@ export class SecondExcersiceComponent{
                 }
             }
 
-        }, Math.round((350/this.speedSimulation)) / this.generalServices.getSpeed())
+        }, Math.round((350/this.generalServices.getSpeedSimulation())) / this.generalServices.getSpeed())
     }
 
     lineMove(index : number){
@@ -379,7 +382,6 @@ export class SecondExcersiceComponent{
     }
 
 }       
-
 
 // ____ 0-X ____ 
 // 0: Negativo   

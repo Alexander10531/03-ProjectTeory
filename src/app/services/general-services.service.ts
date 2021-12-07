@@ -13,6 +13,7 @@ export class GeneralServicesService {
     private ratioValue : number = 200; 
     private numberOfLanes: number = 2; 
     private intervalValue: number = 10; 
+    private speedSimulation : number = 1; 
     private index$ = new Subject<number>();
     private incrementerValue: number = this.getNumberOfLanes;
     private controlInput : buttonBottomBar[] = [
@@ -44,7 +45,16 @@ export class GeneralServicesService {
             title: "Ingrese la velocidad del vehiculo en metros/segundos",
         },
         {
-            index: 3, 
+            index: 3,
+            active: false, 
+            disable: false,
+            typeContainer: "input", 
+            buttonTitle: "Velocidad simulacion",
+            subNotes: "Velocidad minima: 1, Velocidad maxima: 3",
+            title: "Ingrese la velocidad de la simulacion",
+        },
+        {
+            index: 4, 
             active: false, 
             disable: false,
             typeContainer : "button",
@@ -52,7 +62,7 @@ export class GeneralServicesService {
             buttonTitle: "Iniciar simulacion",
         },
         {
-            index: 4, 
+            index: 5, 
             active: false, 
             disable: true,
             typeContainer: "button",
@@ -126,6 +136,14 @@ export class GeneralServicesService {
 
     setSpeed(newSpeed : number){
         this.speedValue = newSpeed; 
+    }
+
+    setSpeedSimulation(newValue : number){
+        this.speedSimulation = newValue; 
+    }
+
+    getSpeedSimulation(){
+        return this.speedSimulation;
     }
 
 }

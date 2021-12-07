@@ -44,6 +44,18 @@ export class IncrementerComponent implements OnInit, OnChanges{
                     this.generalService.setRatioValue(Number(e.target.value));
                     this.generalService.setInputValue(Number(e.target.value));
                 } 
+                break; 
+            case 2: 
+                if(!isNaN((Number(e.target.value)))){
+                    this.generalService.setSpeed(Number(e.target.value));
+                    this.generalService.setInputValue(Number(e.target.value));
+                }    
+                break;
+            case 3: 
+                if(!isNaN((Number(e.target.value)))){
+                    this.generalService.setSpeedSimulation(Number(e.target.value));
+                    this.generalService.setInputValue(Number(e.target.value));
+                }    
                 break;    
         }
     }
