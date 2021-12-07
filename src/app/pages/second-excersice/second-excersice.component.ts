@@ -15,10 +15,12 @@ import { IParametersCar as parametersCar } from "../../utils/interface";
 export class SecondExcersiceComponent{
 
     start: boolean = false; 
-    lastIndex: number = 0;  
+    lastIndex: number = 0; 
     actualIndex! : number ;
     generatedCar: car[] = [];
+    speedSimulation: number = 2; 
     showInput : boolean = false;
+    onlyOnestart : boolean = false; 
     quarterCircunferece! : number; 
     controlInput! : buttonBottomBar[];
     faTimes : IconDefinition = faTimes;
@@ -52,8 +54,11 @@ export class SecondExcersiceComponent{
             case 3:
                 this.quarterCircunferece = Math.round((((this.generalServices.getRatioValue() - 60) * 2) * Math.PI) / 4);
                 this.generateCar();
-                this.moveCar();
+                if(!this.onlyOnestart){ 
+                    this.moveCar();
+                }
                 this.disableButton([0,1,2,3])
+                this.onlyOnestart = true
                 this.start = true; 
                 break;
             case 4: 
@@ -155,7 +160,7 @@ export class SecondExcersiceComponent{
                 }
             }
 
-        }, 350 / this.generalServices.getSpeed())
+        }, Math.round((350/this.speedSimulation)) / this.generalServices.getSpeed())
     }
 
     lineMove(index : number){
