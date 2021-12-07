@@ -31,10 +31,11 @@ export interface ICar{
     status: string,
     finalLane: number,
     initialLane: number,
+    changeAngle : number,  
     changePeriodX: number, 
     changePeriodY: number, 
-    circularAngle : number,  
     distanceTraveled: number,
+    lastPeriod: number; 
 }
 
 

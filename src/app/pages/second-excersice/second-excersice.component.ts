@@ -19,6 +19,7 @@ export class SecondExcersiceComponent{
     actualIndex! : number ;
     generatedCar: car[] = [];
     showInput : boolean = false;
+    quarterCircunferece! : number; 
     controlInput! : buttonBottomBar[];
     faTimes : IconDefinition = faTimes;
     distanceArch : number[][] = [[1, 3/4, 1/2, 1/4], [1/4, 1, 3/4, 1/2], [1/2, 3/4, 1, 1/4], [ 1/4, 1/2, 3/4, 1 ]];
@@ -49,6 +50,7 @@ export class SecondExcersiceComponent{
                 this.generalServices.setInputValue(this.generalServices.getSpeed()); 
                 break; 
             case 3:
+                this.quarterCircunferece = Math.round((((this.generalServices.getRatioValue() - 60) * 2) * Math.PI) / 4);
                 this.generateCar();
                 this.moveCar();
                 this.disableButton([0,1,2,3])
@@ -64,13 +66,13 @@ export class SecondExcersiceComponent{
     
     generateCar(){
         this.createCarData();        
-        setInterval(()=>{
-            if(this.start){
-                this.createCarData();
-            }else{
-                this.generatedCar = [];
-            }
-       }, this.generalServices.getIntervalValue() * 1000)
+    //     setInterval(()=>{
+    //         if(this.start){
+    //             this.createCarData();
+    //         }else{
+    //             this.generatedCar = [];
+    //         }
+    //    }, this.generalServices.getIntervalValue() * 1000)
     }
 
     getCoordinates(lane : number) : parametersCar{
@@ -109,13 +111,16 @@ export class SecondExcersiceComponent{
     }
 
     createCarData(){
-        let initialLane = generateRandomNumber(0,3);
+        // let initialLane = generateRandomNumber(0,3);
         let finalLane = generateRandomNumber(0,3);
+        let initialLane = 0;
+        // let finalLane = 0;
         this.generatedCar.push({
             period: 0,
+            changeAngle: 1, 
             status: "line",
+            lastPeriod : -1, 
             changePeriodX: 0, 
-            circularAngle: 0, 
             changePeriodY: 0,
             distanceTraveled: 0, 
             id : this.lastIndex,
@@ -142,46 +147,39 @@ export class SecondExcersiceComponent{
                             break;
                         case "circular":
                             this.circularMove(i)
-                        
+                            break;
+                        case "goFinalLane":
+                            this.goFinalLane(i);
+                            break; 
                     }
                 }
             }
 
-        }, 1000 / this.generalServices.getSpeed())
+        }, 350 / this.generalServices.getSpeed())
     }
 
     lineMove(index : number){
+        let finalDistance : number = 60 + 35;
         this.generatedCar[index].distanceTraveled += 1; 
-        if(this.generatedCar[index].distanceTraveled >= 85){
-            this.generatedCar[index].status = "circular"
-            this.generatedCar[index].distanceTraveled = 0 
-        }
-        switch(this.generatedCar[index].initialLane){
-            case 0:
-                this.generatedCar[index].y +=1;
-                if(this.generatedCar[index].y > 10){
-                    this.generatedCar[index].angle += 2; 
-                }
-                break;  
-            case 1: 
-                this.generatedCar[index].x -= 1;
-                if(this.generatedCar[index].x < (this.generalServices.getRatioValue() * 2) + 50 - 18){
-                    this.generatedCar[index].angle += 2;
-                }
-                break; 
-            case 2:
-                this.generatedCar[index].y -= 1;
-                if(this.generatedCar[index].y < (this.generalServices.getRatioValue() * 2) + 50 - 18){
-                    this.generatedCar[index].angle += 2;
-                }
-                break; 
-            case 3:
-                this.generatedCar[index].x +=+ 1;
-                if(this.generatedCar[index].x > 18){
-                    this.generatedCar[index].angle += 2;
-                }
-                break; 
-        }        
+        if(this.generatedCar[index].distanceTraveled < finalDistance){
+            switch(this.generatedCar[index].initialLane){
+                case 0: 
+                    this.generatedCar[index].y += 1; 
+                    break; 
+                case 1: 
+                    this.generatedCar[index].x -= 1; 
+                    break; 
+                case 2:
+                    this.generatedCar[index].y -= 1; 
+                    break; 
+                case 3: 
+                    this.generatedCar[index].x += 1; 
+                    break; 
+            } 
+        }else{
+            this.generatedCar[index].status = "circular";
+            this.generatedCar[index].distanceTraveled = 0;
+        }   
     }
 
     disableButton(disable : number[]){
@@ -195,53 +193,252 @@ export class SecondExcersiceComponent{
     }
 
     circularMove(index : number){
-        let periodX : number; 
-        let periodY : number; 
         switch (this.generatedCar[index].initialLane) {
             case 0:
-                periodX = 1; 
-                periodY = 2; 
                 if(this.generatedCar[index].period == 0){
-                    this.generatedCar[index].changePeriodX = -1;
+                    this.generatedCar[index].period = 0.6;
                     this.generatedCar[index].changePeriodY = 1;
-                }
-                if(this.generatedCar[index].period != 0 && this.generatedCar[index].period / periodX){
-                    this.generatedCar[index].changePeriodX -= this.generatedCar[index].changePeriodX;
-                }
-                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
-                this.generatedCar[index].y += this.generatedCar[index].changePeriodY; 
-                break;
-            case 1:
-                periodX = 2; 
-                periodY = 3; 
-                if(this.generatedCar[index].period == 0){
                     this.generatedCar[index].changePeriodX = -1;
-                    this.generatedCar[index].changePeriodY = -1;
+                    this.generatedCar[index].distanceTraveled = 0; 
                 }
-                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
-                this.generatedCar[index].y += this.generatedCar[index].changePeriodY; 
-                break;
-            case 2:
-                periodX = 2; 
-                periodY = 3; 
-                if(this.generatedCar[index].period == 0){
-                    this.generatedCar[index].changePeriodX = +1;
-                    this.generatedCar[index].changePeriodY = -1;
-                }
-                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
-                this.generatedCar[index].y += this.generatedCar[index].changePeriodY; 
-                break;
-            case 3:
-                periodX = 1; 
-                periodY = 2; 
-                if(this.generatedCar[index].period == 0){
+                if(this.generatedCar[index].period == 1){
+                    this.generatedCar[index].period = 1.6;
+                    this.generatedCar[index].changeAngle = -1;
+                    this.generatedCar[index].changePeriodY = 1;
                     this.generatedCar[index].changePeriodX = 1;
+                }
+                if(this.generatedCar[index].period == 2){
+                    this.generatedCar[index].changeAngle = -1;
+                    this.generatedCar[index].changePeriodX = 1;
+                    this.generatedCar[index].changePeriodY = -1;
+                    this.generatedCar[index].period = 2.6;
+                }
+                if(this.generatedCar[index].period == 3){
+                    this.generatedCar[index].changePeriodX = -1;
+                    this.generatedCar[index].changePeriodY = -1;
+                    this.generatedCar[index].changeAngle = -1;
+                    this.generatedCar[index].period = 3.6;
+                }
+                if(this.generatedCar[index].angle == 45){
+                    this.generatedCar[index].changeAngle = -1; 
+                }
+                if( this.generatedCar[index].angle == 0 && 
+                    this.generatedCar[index].changeAngle == -1 && 
+                    this.generatedCar[index].period == 0.6){
+                    this.generatedCar[index].changePeriodX = 0;
+                    this.generatedCar[index].changeAngle = 0; 
+                }
+                if( this.generatedCar[index].angle == -90 && 
+                    this.generatedCar[index].changeAngle == -1 && 
+                    this.generatedCar[index].period == 1.6){
+                    this.generatedCar[index].changePeriodY = 0;
+                    this.generatedCar[index].changeAngle = 0;
+                }
+                if( this.generatedCar[index].angle == -180 && 
+                    this.generatedCar[index].changeAngle == -1 && 
+                    this.generatedCar[index].period == 2.6){
+                    this.generatedCar[index].changePeriodX = 0;
+                    this.generatedCar[index].changeAngle = 0;
+                }
+                if( this.generatedCar[index].angle == -270 && 
+                    this.generatedCar[index].changeAngle == -1 && 
+                    this.generatedCar[index].period == 3.6){
+                    this.generatedCar[index].changeAngle = 0;
+                }
+                if(this.defineFinalLane(this.generatedCar[index], index)){
+                    this.generatedCar[index].changeAngle = 1; 
+                    this.generatedCar[index].status = "goFinalLane"
+                }
+                if(this.generatedCar[index].period == 0.6 && this.generatedCar[index].finalLane != 3 && this.generatedCar[index].y == this.generalServices.getRatioValue() + 70){
+                    this.generatedCar[index].period = Math.round(this.generatedCar[index].period);
+                }
+                if(this.generatedCar[index].period == 1.6 && this.generatedCar[index].finalLane != 2 && this.generatedCar[index].x == this.generalServices.getRatioValue() + 40){
+                    this.generatedCar[index].period = Math.round(this.generatedCar[index].period);
+                }
+                if(this.generatedCar[index].period == 2.6 && this.generatedCar[index].finalLane != 1 && this.generatedCar[index].y == this.generalServices.getRatioValue() - 20){
+                    this.generatedCar[index].period = Math.round(this.generatedCar[index].period);
+                }
+                this.generatedCar[index].distanceTraveled +=1; 
+                this.generatedCar[index].angle += this.generatedCar[index].changeAngle;
+                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY;
+                break;
+            case 1: 
+                // PeriodY = -3
+                // PeriodX = 2
+                this.generatedCar[index].angle += 1; 
+                this.generatedCar[index].distanceTraveled +=1; 
+                break; 
+            case 2: 
+                // PeriodY = 2
+                // PerdioX = -3   
+                this.generatedCar[index].angle += 1; 
+                this.generatedCar[index].distanceTraveled +=1; 
+                break; 
+            case 3: 
+                // PeriodY = -3
+                // PeriodX = 2
+                this.generatedCar[index].angle += 1; 
+                this.generatedCar[index].distanceTraveled +=1; 
+                break; 
+        }
+    }
+
+    defineFinalLane(generatedCar : car, index : number){
+        switch (generatedCar.finalLane) {
+            case 0: 
+            if(generatedCar.x == this.generalServices.getRatioValue() + 70  && generatedCar.y <= this.generalServices.getRatioValue()){
+                return true; 
+                }
+                break;
+            case 1: 
+            if(generatedCar.y == this.generalServices.getRatioValue() + 80 && generatedCar.x >= 150){
+                return true; 
+                }
+                break;            
+            case 2: 
+            if(generatedCar.y >= this.generalServices.getRatioValue() + 100 && generatedCar.x == this.generalServices.getRatioValue()){
+                return true; 
+            }
+                break;    
+            case 3:
+                if(generatedCar.y == this.generalServices.getRatioValue() - 80){
+                    return true;    
+                }
+                break; 
+        }
+
+        return false; 
+
+    }
+
+    goFinalLane(index : number){
+        switch (this.generatedCar[index].finalLane) {
+            case 0: 
+                if(this.generatedCar[index].x > this.generalServices.getRatioValue() + 45){
+                    this.generatedCar[index].changeAngle = 1; 
+                    this.generatedCar[index].changePeriodX = 0; 
+                    this.generatedCar[index].changePeriodY = -1; 
+                }
+                if(this.generatedCar[index].angle == -180){
+                    this.generatedCar[index].changeAngle = 0;
+                }
+                this.generatedCar[index].angle += this.generatedCar[index].changeAngle;
+                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY;
+            break; 
+            case 1: 
+            if(this.generatedCar[index].y == this.generalServices.getRatioValue() + 30){
+                    this.generatedCar[index].changePeriodX = 1;
+                    this.generatedCar[index].changePeriodY = 0; 
+                    this.generatedCar[index].changeAngle = 1;
+                }
+                if(this.generatedCar[index].y < this.generalServices.getRatioValue() + 30){
+                    this.generatedCar[index].changePeriodX = 0;
+                    this.generatedCar[index].changePeriodY = -1; 
+                    this.generatedCar[index].changeAngle = 0;
+                }
+                if(this.generatedCar[index].angle == -90){
+                    this.generatedCar[index].changeAngle = 0;
+                }
+                this.generatedCar[index].angle += this.generatedCar[index].changeAngle;
+                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY;
+                break;             
+            case 2: 
+                if(this.generatedCar[index].x > this.generalServices.getRatioValue() + 40){
+                    this.generatedCar[index].changePeriodX = 0;
+                    this.generatedCar[index].changePeriodY = 1; 
+                    this.generatedCar[index].changeAngle = 1;
+                }
+                if(this.generatedCar[index].angle == 0){
+                    this.generatedCar[index].changeAngle = 0;
+                }
+                this.generatedCar[index].angle += this.generatedCar[index].changeAngle;
+                this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY;
+                break;                   
+            case 3:
+                if(this.generatedCar[index].angle == 90){
+                    this.generatedCar[index].changePeriodY = 0;
+                    this.generatedCar[index].changeAngle = 0;
+                }else{
+                    this.generatedCar[index].changePeriodX = -1;
                     this.generatedCar[index].changePeriodY = 1;
                 }
+                this.generatedCar[index].angle += this.generatedCar[index].changeAngle;
                 this.generatedCar[index].x += this.generatedCar[index].changePeriodX;
-                this.generatedCar[index].y += this.generatedCar[index].changePeriodY;     
+                this.generatedCar[index].y += this.generatedCar[index].changePeriodY;  
                 break;
         }
     }
 
 }       
+
+
+// ____ 0-X ____ 
+// 0: Negativo   
+// 1: Positivo  
+// 2: Positivo
+// 3: Negativo
+
+// ____ 0-Y ____ 
+// 0: Positivo   
+// 1: Positivo  
+// 2: Negativo
+// 3: Negativo
+
+// ____ 0-angle ____ 
+// 0: Positivo 
+// 1: Negativo
+// 2: Negativo 
+// 3: Negativo
+
+// ____ 1-X ____ 
+// 0: Negativo   
+// 1: Negativo  
+// 2: Positivo
+// 3: Positivo
+
+// ____ 1-Y ____ 
+// 0: Negativo   
+// 1: Positivo  
+// 2: Positivo
+// 3: Negativo
+
+// ____ 1-angle ____ 
+// 0: Positivo 
+// 1: Negativo
+// 2: Negativo 
+// 3: Negativo
+
+// ____ 2-X ____ 
+// 0: Positivo   
+// 1: Negativo  
+// 2: Negativo
+// 3: Positivo
+
+// ____ 2-Y ____ 
+// 0: Negativo   
+// 1: Negativo  
+// 2: Positivo
+// 3: Positivo
+
+// ____ 2-angle ____ 
+// 0: Negativo   
+// 1: Negativo  
+// 2: Positivo
+// 3: Positivo
+
+// ____ 3-X ____ 
+// 0: Positivo   
+// 1: Positivo  
+// 2: Negativo
+// 3: Negativo
+
+// ____ 3-Y ____ 
+// 0: Positivo    
+// 1: Negativo   
+// 2: Negativo
+// 3: Positivo 
+
