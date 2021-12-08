@@ -117,8 +117,25 @@ export class FirstExcersiceComponent{
                 [
                     Validators.min(0),
                     Validators.max(30),
-                    Validators.pattern('^\\d+$')
                 ]],
+            inputFirstPrice : [
+                this.valueFirst, 
+                [
+                    Validators.min(1),
+                ]
+            ],
+            inputNormalPrice : [
+                this.valueNormal, 
+                [
+                    Validators.min(1),
+                ]
+            ],
+            inputThirdPrice : [
+                this.valueThird, 
+                [
+                    Validators.min(1),
+                ]
+            ],
             destinyProjection : [
                 "Seleccione un lugar de destino", 
                 [
@@ -132,7 +149,6 @@ export class FirstExcersiceComponent{
         this.showData = valueBool; 
     }
 
-    // Fix iterations on calculatePrediction
     calculatePrediction(distance : number){
         this.valueProjection = [];
         let numberRequest : number = 2;
@@ -168,7 +184,13 @@ export class FirstExcersiceComponent{
         let firstPrice = Number(this.form.value.firstNumber ? this.form.value.firstNumber : 0);
         let normalPrice = Number(this.form.value.turistNumber ? this.form.value.turistNumber : 0);
         let thirdPrice = Number(this.form.value.thirdNumber ? this.form.value.thirdNumber : 0);
-        if(this.form.valid && (firstPrice + normalPrice + thirdPrice) < 41 && (firstPrice + normalPrice + thirdPrice) > 0 && !isNaN(this.form.value.destinyProjection)){
+        if( this.form.valid && 
+            (firstPrice + normalPrice + thirdPrice) < 41 && 
+            (firstPrice + normalPrice + thirdPrice) > 0 && 
+            !isNaN(this.form.value.destinyProjection)){
+            this.valueFirst = this.form.value.inputFirstPrice
+            this.valueNormal = this.form.value.inputNormalPrice;
+            this.valueThird = this.form.value.inputThirdPrice;
             this.firstPrice = (this.valueFirst * this.form.value.destinyProjection) * firstPrice;
             this.normalPrice = (this.valueNormal * this.form.value.destinyProjection) * normalPrice;
             this.thirdPrice = (this.valueThird * this.form.value.destinyProjection) * thirdPrice;

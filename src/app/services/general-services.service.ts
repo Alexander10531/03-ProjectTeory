@@ -111,7 +111,18 @@ export class GeneralServicesService {
     }
 
     setRatioValue(newRatioValue : number) : void{
-        this.ratioValue = newRatioValue;
+        if(newRatioValue < 200){
+            console.log("Menor")
+            this.ratioValue = 200;
+        }
+        if(newRatioValue > 200){
+            console.log("Mayor")
+            this.ratioValue = 250;
+        }
+        if(newRatioValue > 200 && this.ratioValue < 250){
+            console.log("En rango")
+            this.ratioValue = newRatioValue;
+        }
     }
 
     getIntervalValue() : number{
@@ -139,7 +150,15 @@ export class GeneralServicesService {
     }
 
     setSpeedSimulation(newValue : number){
-        this.speedSimulation = newValue; 
+        if(newValue > 3){
+            this.speedSimulation = 3;
+        }
+        if(newValue < 0){
+            this.speedSimulation = 1;
+        }
+        if(newValue > 0 && newValue < 3){
+            this.speedSimulation = newValue; 
+        }
     }
 
     getSpeedSimulation(){

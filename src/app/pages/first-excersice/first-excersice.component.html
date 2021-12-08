@@ -24,23 +24,41 @@
                 formControlName="thirdNumber"
                 placeholder="Numero de pasajeros de 3era edad o niño"
                 [class.input-danger]="form.get('thirdNumber')!.dirty && form.get('thirdNumber')!.invalid">
-                <select 
-                    id="select-place"
-                    formControlName="destinyProjection">
-                    <option [value]="">Seleccione un lugar de destino</option>
-                    <option
-                        *ngFor="let i of destiny" 
-                        [value]="i.distance">{{ i.name }}</option>
-                </select>
-                <button 
-                    class="button-primary">
-                    Calcular
-                </button>
-                <button 
+            <input 
+                type="text"
+                class="input-underline" 
+                formControlName="inputFirstPrice"
+                placeholder="Precio de primera clase"
+                [class.input-danger]="form.get('inputNormalPrice')!.dirty && form.get('inputNormalPrice')!.invalid">
+            <input 
+                type="text"
+                class="input-underline" 
+                formControlName="inputNormalPrice"
+                placeholder="Precio de clase normal"
+                [class.input-danger]="form.get('inputNormalPrice')!.dirty && form.get('inputNormalPrice')!.invalid">
+            <input 
+                type="text"
+                class="input-underline" 
+                formControlName="inputThirdPrice"
+                placeholder="Precio de tercera edad y niños"
+                [class.input-danger]="form.get('inputThirdPrice')!.dirty && form.get('inputThirdPrice')!.invalid">
+            <select 
+                id="select-place"
+                formControlName="destinyProjection">
+                <option [value]="">Seleccione un lugar de destino</option>
+                <option
+                    *ngFor="let i of destiny" 
+                    [value]="i.distance">{{ i.name }}</option>
+            </select>
+            <button 
+                class="button-primary">
+                Calcular
+            </button>
+            <button 
                 (click)="fillRandomNumber()"
                 class="button-primary">
                     Valores aleatorios
-                </button>
+            </button>
         </form>
     </div>
     <div

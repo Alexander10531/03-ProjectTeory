@@ -56,7 +56,7 @@ export class IncrementerComponent implements OnInit, OnChanges{
                     this.generalService.setSpeedSimulation(Number(e.target.value));
                     this.generalService.setInputValue(Number(e.target.value));
                 }    
-                break;    
+                break;
         }
     }
 }
